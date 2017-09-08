@@ -27,3 +27,14 @@ section.page.intro:first-letter {
     font-family: 'Niconne', cursive;
 
 }
+
+table.table.table-condensed {
+    max-width: 600px;
+}
+
+
+.center {
+    margin: auto;
+    width: 50%;
+   
+}
