@@ -8,13 +8,49 @@ _SVG_Map = function(Container){
 
     try{
     this.$MapContainer = $(Container);
+    this.$SVGMap = this.$MapContainer.find('object.map');
     this.$SVGMapContainer = this.$MapContainer.find('svg.map');
     this.$Title = this.$MapContainer.find('svg.title');
     this.$Road = this.$MapContainer.find('.road');
    
     this.fnInit  = function(){
+      var that = this;
     //   var tween = TweenMax.to( this.Road , 1, {css:{fill:"#ff0000"}, delay:5});
       //  this.$MapContainer.css({height: this.$SVGMapContainer.height(), width:this.$SVGMapContainer.width() });
+
+this.$SVGMap.attr({height: this.$MapContainer.height(), width:this.$MapContainer.width() });
+
+/*
+this.$SVGMap[0].addEventListener('load', function(a,b,c,d) {
+   $('svg.map').attr({viewBox:'0 0 '+that.$MapContainer.height()+' '+that.$MapContainer.width(), height: that.$MapContainer.height(), width:that.$MapContainer.width() });
+ 
+}, true);
+*/
+var colors =["#FF0000","#FFFF00","#00FF00","#00FFFF","#0000FF","#FF00FF","#ED1C24","#FFF200","#00A651","#00AEEF","#2E3192","#EC008C","#FF0000"];
+
+this.$SVGMap[0].addEventListener("load", function() {
+   var doc = this.contentDocument;
+   //var hand = doc.getElementById("map"); 
+   var hand = $(doc).find('g#Tree path')
+
+   tl = new TimelineMax({repeat:-1});
+   for (j = 0; j < colors.length; j++) {
+   tl.to(hand, 1, {fill:colors[j], ease:Linear.ease});
+   };
+  
+});
+
+
+/*
+this.$SVGMap.load('Images/map.svg',
+    function (response, status, xhr) {
+        if (status == 'success') {
+            // yay the load is ok
+            alert('loaded');
+        }
+    })
+    */
+
        // this.$MapContainer.addClass('slowly-introduce');
 
      //   #region old code
