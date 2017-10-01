@@ -26,7 +26,7 @@ _SVG_Typography = function (Container, options) {
                             });
                         }
                     }
-                    that.Options.OnInitialised.call(that, that.Alphabet);
+                    that.Options.OnInitialised.call(that, that.Alphabet,that.$SVG);
                 }
             }
             catch (e) {
