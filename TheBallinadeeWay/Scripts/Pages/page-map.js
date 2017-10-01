@@ -18,9 +18,13 @@
 
 var $Morph1 = $SVG.find('#Morph1'),$Morph2 = $SVG.find('#Morph2');
 
-TweenMax.set($Morph1, {x:3,y:4,scale:5});
-TweenMax.set($Morph2, {x:3,y:4,scale:5});
-TweenMax.to($Morph1, 5, {morphSVG:$Morph2});
+//TweenMax.set($Morph2, {x:3,y:4,rotationX:0,scale:5});
+TweenMax.to($Morph2, 1, {rotationZ:90}, 2.5);
+
+
+//TweenMax.set($Morph1, {x:3,y:4,scale:5});
+//TweenMax.set($Morph2, {x:3,y:4,scale:5});
+//TweenMax.to($Morph1, 5, {morphSVG:$Morph2});
 
 
 // TweenMax.to(that.Get('B').$Element, 3, {skewX:90}, 2.5);
