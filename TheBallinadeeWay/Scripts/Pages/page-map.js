@@ -5,15 +5,14 @@
      var _SVG_Typography_Object = new _SVG_Typography('.title-container',{
          OnInitialised:function(Alphabet,$SVG){
              var that = this;
-             _.each(Alphabet, function(item){
-                 
-                  
-                 
-             });
+             
+              
+ that.Draw('B');
+
 
           //  TweenMax.to(that.Get('B').$Element, 3, {skewX:90}, 2.5);
          //   TweenMax.to(that.Get('E').$Element, 3, {skewX:90}, 2.5);
-            var TitleTimeline = new TimelineMax({repeat:-1});
+         /*   var TitleTimeline = new TimelineMax({repeat:-1});
             var ease = Linear.easeNone;
 
 var $Morph1 = $SVG.find('#Morph1'),$Morph2 = $SVG.find('#Morph2');
@@ -22,10 +21,10 @@ var $Morph1 = $SVG.find('#Morph1'),$Morph2 = $SVG.find('#Morph2');
 TweenMax.to($Morph2, 1, {rotationZ:90}, 2.5);
 
 
-//TweenMax.set($Morph1, {x:3,y:4,scale:5});
-//TweenMax.set($Morph2, {x:3,y:4,scale:5});
-//TweenMax.to($Morph1, 5, {morphSVG:$Morph2});
-
+TweenMax.set($Morph1, {x:3,y:4,scale:5});
+TweenMax.set($Morph2, {x:3,y:4,scale:5});
+TweenMax.to($Morph1, 5, {morphSVG:$Morph2});
+*/
 
 // TweenMax.to(that.Get('B').$Element, 3, {skewX:90}, 2.5);
   //          TweenLite.to($Morph1, 5, {morphSVG:$Morph2});
