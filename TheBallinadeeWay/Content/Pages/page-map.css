@@ -4,6 +4,27 @@ path.parts {
 }
 
 
+.circle {
+  width:50px;
+  height:50px;
+  position:relative;
+  margin-bottom:2px;
+  background-color:red;
+}
+
+
+.box {
+  width:50px;
+  height:50px;
+  position:relative;
+  margin-bottom:2px;
+}
+
+.red {
+  background-color:red;
+}
+
+
 body {
              font-family: 'Aladin', cursive;
              /* background: black; */

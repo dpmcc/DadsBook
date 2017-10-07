@@ -7,7 +7,7 @@
              var that = this;
              
               
- that.Draw('B');
+ that.Write('B',{Duration:20});
 
 
           //  TweenMax.to(that.Get('B').$Element, 3, {skewX:90}, 2.5);
