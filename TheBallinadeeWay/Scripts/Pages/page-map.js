@@ -1,63 +1,44 @@
 (function BallinadeeWayMap() {
     $(document).ready(function () {
-        console.log('Page loaded');
-       // var _SVG_Map_Object = new _SVG_Map('.map-container');
-     var _SVG_Typography_Object = new _SVG_Typography('.title-container',{
-         OnInitialised:function(Alphabet,$SVG){
-             var that = this;
+     console.log('Page loaded');
+
+//var greenPath = MorphSVGPlugin.pathDataToBezier("#pathDenis", {offsetX:-50});
+var redPath = MorphSVGPlugin.pathDataToBezier("#pathDenis", {offsetX:0}); 
+//var bluePath = MorphSVGPlugin.pathDataToBezier("#pathDenis", {offsetX:50});   
+var theButton = document.getElementById("divAnimControl");
+theButton.addEventListener("click", doAnim);
+TweenMax.set("circle", {xPercent:-50, yPercent:-50});
+
+
+var tl = new TimelineMax({paused:true}); 
+
+tl.to("#red", 2, {bezier:{values:redPath, type:"cubic"}}, 0);
+//tl.to("#green", 2, {bezier:{values:greenPath, type:"cubic"}}, 0);
+//tl.to("#blue", 2, {bezier:{values:bluePath, type:"cubic"}}, 0);
+
+function doAnim() {
+  tl.play(0);
+ }
+
+
+  //   var _SVG_Map_Object = new _SVG_Map('.map-container');
+
+
+
+    var _SVG_Typography_Object = new _SVG_Typography('.title-container',{
+        OnInitialised:function(Alphabet,$SVG){
+            var that = this;
              
               
- that.Write('B',{Duration:20});
+        that.Write('B',{Duration:20});
 
 
-          //  TweenMax.to(that.Get('B').$Element, 3, {skewX:90}, 2.5);
-         //   TweenMax.to(that.Get('E').$Element, 3, {skewX:90}, 2.5);
-         /*   var TitleTimeline = new TimelineMax({repeat:-1});
-            var ease = Linear.easeNone;
 
-var $Morph1 = $SVG.find('#Morph1'),$Morph2 = $SVG.find('#Morph2');
-
-//TweenMax.set($Morph2, {x:3,y:4,rotationX:0,scale:5});
-TweenMax.to($Morph2, 1, {rotationZ:90}, 2.5);
-
-
-TweenMax.set($Morph1, {x:3,y:4,scale:5});
-TweenMax.set($Morph2, {x:3,y:4,scale:5});
-TweenMax.to($Morph1, 5, {morphSVG:$Morph2});
-*/
-
-// TweenMax.to(that.Get('B').$Element, 3, {skewX:90}, 2.5);
-  //          TweenLite.to($Morph1, 5, {morphSVG:$Morph2});
-            /*
-var $B1 = $SVG.find('#B1'),$B2 = $SVG.find('#B2');;
-TweenMax.set($B1, {fill:'white'});
-TweenMax.set($B2, {fill:'white'});
-TweenMax.set($B1, {drawSVG:0, stroke:"black",scale:5});
-TweenMax.set($B2, {drawSVG:0, stroke:"black",scale:5});
-TitleTimeline.to($B1, 4, {drawSVG:true, ease:ease});
-TitleTimeline.to($B2, 8, {drawSVG:true, ease:ease});
-*/
-/*
-                            var demo = document.getElementById("demo");
-var tl = new TimelineMax({repeat:-1});
-
-TweenMax.set(demo, {autoAlpha:1});
-TweenMax.set("path", {drawSVG:0, stroke:"#42a6e0"});
-TweenMax.set("ellipse", {autoAlpha:0, fill:"#42a6e0"});
-
-tl.to("#hPipe", 0.35, {drawSVG:true, ease:ease});
-tl.to("#hBody", 0.75, {drawSVG:true, ease:ease});
-tl.to("#mainPath", 5, {drawSVG:true, ease:ease});
-tl.to("#dot2", 0.15, {autoAlpha:1});
-tl.to("#dot1", 0.15, {autoAlpha:1});
-tl.to("#tCross", 0.25, {drawSVG:true, ease:ease});
-tl.to("path, ellipse", 0.75, {autoAlpha:0}, "+=1"); 
-             */
-          
-         }
-     });
+       }
+     
+    });
        
 
         
-    });
+    });//document on ready
 })();

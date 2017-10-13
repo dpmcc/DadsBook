@@ -1,0 +1,7 @@
+<svg id="test" xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#ccc"/>
+    <circle id="red" r="25" fill="red" cx="25" cy="25"/>
+    <circle id="green" r="25" fill="green" cx="25" cy="25"/>
+  <circle id="blue" r="25" fill="blue" cx="25" cy="25"/>
+  <path id="pathLeftArc" d="M200,20S359,48,359,200,200,389,200,389" fill="none" stroke="#000" stroke-miterlimit="10"/>
+</svg>
