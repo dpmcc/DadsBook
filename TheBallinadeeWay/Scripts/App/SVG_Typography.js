@@ -23,7 +23,7 @@ _SVG_Typography = function(Container, options) {
                                 Letter: Letter,
                                 $Element: $SVGElement,
                                 Path: $SVGElement.find('path.parts'),
-                                DrawParts: $SVGElement.find('g.draw-parts path'),
+                                DrawParts: $SVGElement.find('g.draw-parts path.draw'),
                             };
                             that.Alphabet.push(Element);
                             console.log('loaded Letter' + Letter, Element)
@@ -55,7 +55,8 @@ _SVG_Typography.prototype.Write = function(Letter, options) {
     try {
 
         var LocalOptions = {
-            Duration: 5,
+            Duration: 1,
+            scale:15,
             DrawSettings: {
                 opacity: 1,
                 drawSVG: true
@@ -63,58 +64,30 @@ _SVG_Typography.prototype.Write = function(Letter, options) {
         }
         LocalOptions = $.extend({}, LocalOptions, options);
 
-        // var DrawParts = that.Get(Letter).DrawParts || new array();
+        //Set scale
+        var ThisLetter = that.Get(Letter);
+        TweenMax.to(ThisLetter.$Element, 0, {scale:LocalOptions.scale});
 
-        //  var TitleTimeline = new TimelineMax({repeat:-1});
-        //    var ease = Linear.easeNone;
-        // TweenMax.set(DrawParts, {drawSVG:0});
-        // //    DrawParts = DrawParts.filter('.draw');
-        //  TweenMax.to(DrawParts, LocalOptions.Duration, LocalOptions.DrawSettings);
-        /*
-TweenMax.to(".circle", 3, {
-  bezier: DrawParts[0]
-});
-*/
-        //$(DrawParts[1]).attr('d')
+        //Start draw
+        var DrawParts = that.Get(Letter).DrawParts || new array();
+        var MainDrawPart =  that.Get(Letter).DrawParts.filter('.draw.main');
+        var Marker =  that.Get(Letter).DrawParts.filter('.draw.marker');
+        TweenMax.set(Marker[0], {xPercent:-730, yPercent:-1400});
+        TweenMax.set(DrawParts, {drawSVG:0});
 
-        /*
- var array = that.ConvertToCubicBezier($('pathDenis')[0]);
-
-        TweenMax.to('#circle', 3, {
-          bezier:{type:"cubic", autoRotate:true, values:array}, force3D:true, ease:Power0.easeNone
-        });
-*/
-
+        var TitleTimeline = new TimelineMax({ paused: true});
+        var ease = Linear.easeNone;
        
-
-        that.$SVG.find('#red1').click(function() {
-
-            var redPath = MorphSVGPlugin.pathDataToBezier(that.$SVG.find('#pathDenis1').attr('d'), {
-                offsetX: 0
-            });
-           
-            TweenMax.set(that.$SVG.find('circle'), {
-                xPercent: -100,
-                yPercent: -100
-            });
-
-            var tl = new TimelineMax({
-                paused: true
-            });
-
-
-
-
-            tl.to(that.$SVG.find('#red1'), 2, {
-                bezier: {
-                    values: redPath,
-                    type: "cubic"
-                }
-            }, 0);
-         
-         tl.play(0);
-        });
-
+        DrawParts = DrawParts.filter('.draw');
+        TitleTimeline.to(DrawParts, LocalOptions.Duration, LocalOptions.DrawSettings);
+        
+         var array = that.ConvertToCubicBezier(MainDrawPart[0]);
+ 
+         TitleTimeline.to(Marker[0],  (LocalOptions.Duration * 0.9),{bezier:{values:array, type:"cubic"}}, 0);
+         TitleTimeline.to(Marker[0],  (LocalOptions.Duration * 0.5), {autoAlpha:0});
+       
+         TitleTimeline.play(0);
+        
     } catch (e) {
         console.error(e);
     }
@@ -161,6 +134,7 @@ _SVG_Typography.prototype.ConvertToCubicBezier = function(path) {
 
     } catch (e) {
         console.error(e);
+        throw e;
     }
 }
 
