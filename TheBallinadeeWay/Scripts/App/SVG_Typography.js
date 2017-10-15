@@ -81,10 +81,10 @@ _SVG_Typography.prototype.Write = function(Letter, options) {
         DrawParts = DrawParts.filter('.draw');
         TitleTimeline.to(DrawParts, LocalOptions.Duration, LocalOptions.DrawSettings);
         
-         var array = that.ConvertToCubicBezier(MainDrawPart[0]);
- 
-         TitleTimeline.to(Marker[0],  (LocalOptions.Duration * 0.9),{bezier:{values:array, type:"cubic"}}, 0);
-         TitleTimeline.to(Marker[0],  (LocalOptions.Duration * 0.5), {autoAlpha:0});
+        // var array = that.ConvertToCubicBezier(MainDrawPart[0]);
+         var array = MorphSVGPlugin.pathDataToBezier(MainDrawPart[0], {offsetX:0});   
+         TitleTimeline.to(Marker[0],  (LocalOptions.Duration * 0.8),{bezier:{values:array, type:"cubic"}}, 0);
+         TitleTimeline.to(Marker[0],  0, {autoAlpha:0});
        
          TitleTimeline.play(0);
         

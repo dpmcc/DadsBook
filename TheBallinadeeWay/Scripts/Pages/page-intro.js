@@ -5,7 +5,7 @@
             OnInitialised: function (Alphabet, $SVG) {
                 var that = this;
                 that.Write('B', {
-                    Duration: 1
+                    Duration: 20
                 });
             }
         });
