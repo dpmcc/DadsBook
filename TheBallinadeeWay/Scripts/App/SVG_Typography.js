@@ -14,16 +14,16 @@ _SVG_Typography = function(Container, options) {
                 var doc = this.contentDocument;
                 that.$SVG = $(doc).children('svg');
                 if (that.$SVG.length > 0) {
-                    for (var i = 0; i < 26; i++) {
+                    for (var i = 0; i < 60; i++) {
                         var Letter = String.fromCharCode(65 + i)
-                          , $SVGElement = that.$SVG.find('g#Letter' + Letter)
+                          , $SVGElement = that.$SVG.find('g#Letter' + Letter.replace(/\W/g, ''))
                           , exists = $SVGElement.length > 0;
                         if (exists) {
                             var Element = {
                                 Letter: Letter,
                                 $Element: $SVGElement,
                                 Path: $SVGElement.find('path.parts'),
-                                DrawParts: $SVGElement.find('g.draw-parts path.draw'),
+                                DrawParts: $SVGElement.find('g.draw-parts'),
                             };
                             that.Alphabet.push(Element);
                             console.log('loaded Letter' + Letter, Element)
@@ -31,7 +31,8 @@ _SVG_Typography = function(Container, options) {
                     }
                     that.Options.OnInitialised.call(that, that.Alphabet, that.$SVG);
                 }
-            } catch (e) {j
+            } catch (e) {
+        
                 console.error(e);
             }
         }, true);
@@ -40,23 +41,51 @@ _SVG_Typography = function(Container, options) {
     }
 }
 _SVG_Typography.prototype.Get = function(Letter) {
-    var that = this;
+    var that = this
+      , ReturnLetter = {};
     try {
-        return _.findWhere(this.Alphabet, {
+        ReturnLetter = _.findWhere(this.Alphabet, {
             Letter: Letter
         });
+        ReturnLetter.$Element = that.$SVG.find('g#Letter' + Letter).clone().removeAttr('id');
+        ReturnLetter.Path = ReturnLetter.$Element.find('path.parts');
+        ReturnLetter.DrawParts = ReturnLetter.$Element.find('g.draw-parts');
+        return ReturnLetter;
     } catch (e) {
         console.error(e);
     }
 }
 
-_SVG_Typography.prototype.Write = function(Letter, options) {
+_SVG_Typography.prototype.Write = function(Word, options) {
     var that = this;
     try {
 
-        var LocalOptions = {
+        if (Word.length > 0)
+            // option.y +=  option.y+100;
+
+            that.WriteProcess(Word[0], Word, 0, options);
+
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+_SVG_Typography.prototype.WriteProcess = function(Letter, Word, counter, options) {
+    var that = this;
+    try {
+
+        if (Letter === undefined) {
+            return
+        }
+
+        var LocalDuration = 0
+          , LocalOptions = {
             Duration: 1,
-            scale:15,
+            scale: 1,
+            x: 100,
+            y: function() {
+                return 100
+            },
             DrawSettings: {
                 opacity: 1,
                 drawSVG: true
@@ -66,75 +95,111 @@ _SVG_Typography.prototype.Write = function(Letter, options) {
 
         //Set scale
         var ThisLetter = that.Get(Letter);
-        TweenMax.to(ThisLetter.$Element, 0, {scale:LocalOptions.scale});
+        that.$SVG.append(ThisLetter.$Element);
+
+        TweenMax.to(ThisLetter.$Element, 0, {
+            scale: LocalOptions.scale,
+            x: ((typeof LocalOptions.x === 'function') ? LocalOptions.x.call(that) : LocalOptions.x),
+            y: ((typeof LocalOptions.y === 'function') ? LocalOptions.y.call(that) : LocalOptions.y)
+        });
 
         //Start draw
-        var DrawParts = that.Get(Letter).DrawParts || new array();
-        var MainDrawPart =  that.Get(Letter).DrawParts.filter('.draw.main');
-        var Marker =  that.Get(Letter).DrawParts.filter('.draw.marker');
-        TweenMax.set(Marker[0], {xPercent:-730, yPercent:-1400});
-        TweenMax.set(DrawParts, {drawSVG:0});
+        var DrawPartGroups = ThisLetter.DrawParts || new array();
 
-        var TitleTimeline = new TimelineMax({ paused: true});
-        var ease = Linear.easeNone;
-       
-        DrawParts = DrawParts.filter('.draw');
-        TitleTimeline.to(DrawParts, LocalOptions.Duration, LocalOptions.DrawSettings);
-        
-        // var array = that.ConvertToCubicBezier(MainDrawPart[0]);
-         var array = MorphSVGPlugin.pathDataToBezier(MainDrawPart[0], {offsetX:0});   
-         TitleTimeline.to(Marker[0],  (LocalOptions.Duration * 0.8),{bezier:{values:array, type:"cubic"}}, 0);
-         TitleTimeline.to(Marker[0],  0, {autoAlpha:0});
-       
-         TitleTimeline.play(0);
-        
+        that.ShowCompleteParts(ThisLetter, false);
+
+       LocalDuration  = LocalOptions.Duration / ThisLetter.Path.length;
+
+        var TitleTimeline = new TimelineMax({
+            paused: true,
+            onComplete: function() {
+                that.ShowCompleteParts(ThisLetter, true);
+                counter++;
+                var BoundingBox = ThisLetter.$Element[0].getBBox();
+
+                LocalOptions.x = ((typeof LocalOptions.x === 'function') ? LocalOptions.x.call(that) : LocalOptions.x) + (BoundingBox.width * LocalOptions.scale) + 10;
+
+                // LocalOptions.y = ((typeof LocalOptions.y === 'function') ? LocalOptions.y.call(that) : LocalOptions.y) + BoundingBox.height;
+                that.WriteProcess(Word[counter], Word, counter, LocalOptions);
+                if (typeof LocalOptions.onComplete === 'function') {
+                    onComplete.call(that)
+                }
+            }
+        });
+
+        TweenMax.set(DrawPartGroups.find('path.end'), {
+            opacity: 0
+        });
+
+        DrawPartGroups.each(function(i, ThisPart) {
+
+            var DrawParts = $(ThisPart).find('path.draw');
+            var MainDrawPart = DrawParts.filter('.draw.main');
+            var EndParts = DrawParts.filter('.end');
+
+            var Marker = DrawParts.filter('.draw.marker');
+            if (Marker.length > 0)
+                TweenMax.set(Marker[0], {
+                    xPercent: -730,
+                    yPercent: -1400
+                });
+
+            TweenMax.set(DrawParts, {
+                drawSVG: 0
+            });
+
+            var ease = Linear.easeNone;
+
+            DrawParts = DrawParts.filter('.draw');
+            TitleTimeline.to(DrawParts, LocalDuration, LocalOptions.DrawSettings);
+
+            if (Marker.length > 0) {
+
+                var array = MorphSVGPlugin.pathDataToBezier(MainDrawPart[0], {
+                    offsetX: 0
+                });
+                TitleTimeline.to(Marker[0], (LocalDuration * 0.8), {
+                    bezier: {
+                        values: array,
+                        type: "cubic"
+                    }
+                }, 0);
+                TitleTimeline.to(Marker[0], 0, {
+                    autoAlpha: 0
+                });
+            }
+
+            if (EndParts.length > 0)
+                TitleTimeline.to(EndParts, {
+                    opacity: 1
+                });
+
+            TitleTimeline.play(0);
+
+        });
+
+        return {
+            BBox: ThisLetter.$Element[0].getBBox(),
+            x: ((typeof LocalOptions.x === 'function') ? LocalOptions.x.call(that) : LocalOptions.x),
+            y: ((typeof LocalOptions.y === 'function') ? LocalOptions.y.call(that) : LocalOptions.y)
+        }
+
     } catch (e) {
         console.error(e);
     }
 }
 
-_SVG_Typography.prototype.ConvertToCubicBezier = function(path) {
+_SVG_Typography.prototype.ShowCompleteParts = function(Letter, show) {
     var that = this;
     try {
-        var data = Snap.path.toCubic(path.getAttribute('d'))
-        dataLength = data.length,
-        points = [],
-        //holds our series of x/y values for anchors and control points,
-        pointsString = data.toString();
+        show == undefined ? true : false;
+        Letter.Path.each(function(i, ThisPart) {
+            (show == true) ? $(ThisPart).show() : $(ThisPart).hide();
 
-        // convert cubic data to GSAP bezier
-        for (var i = 0; i < dataLength; i++) {
-            var seg = data[i];
-            if (seg[0] === "M") {
-                // move (starts the path)
-                var point = {};
-                point.x = seg[1];
-                point.y = seg[2];
-                points.push(point);
-            } else {
-                // seg[0] === "C" (Snap.path.toCubic should return only curves after first point)
-                for (var j = 1; j < 6; j += 2) {
-                    var point = {};
-                    point.x = seg[j];
-                    point.y = seg[j + 1];
-                    points.push(point);
-                }
-            }
-        }
-
-        //position box's center around line:
-        //TweenMax.set("#redBox", {xPercent:-50, yPercent:-50})
-
-        //make the tween
-        // var tween = TweenMax.to("#redBox", 3, {bezier:{type:"cubic", autoRotate:true, values:points}, force3D:true, ease:Power0.easeNone});
-
-        console.log(points);
-
-        return points;
+        });
 
     } catch (e) {
         console.error(e);
-        throw e;
     }
 }
 

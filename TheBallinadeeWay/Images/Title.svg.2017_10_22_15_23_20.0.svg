@@ -42,9 +42,9 @@
      inkscape:window-height="961"
      id="namedview3692"
      showgrid="false"
-     inkscape:zoom="64"
-     inkscape:cx="9.2529206"
-     inkscape:cy="389.61977"
+     inkscape:zoom="22.627417"
+     inkscape:cx="12.960431"
+     inkscape:cy="387.06539"
      inkscape:window-x="-8"
      inkscape:window-y="12"
      inkscape:window-maximized="1"
@@ -137,22 +137,19 @@
     </g>
   </g>
   <g
-     id="Lettera" >
+     id="Lettera"
+     transform="matrix(0.3645,0,0,0.3645,4.2370502,2.8896984)">
+    <path
+       d="m 21.943115,12.548303 q -1.707861,3.261333 -3.501621,3.354031 -0.674717,0.03487 -0.99172,-0.340932 -0.317003,-0.375788 -0.399597,-1.61936 -0.917473,1.366547 -1.58786,1.793374 -0.652985,0.443753 -1.52518,0.488827 -1.267151,0.06548 -2.074226,-0.837599 -0.790618,-0.903932 -0.874708,-2.486129 l -0.04063,-0.764426 q -0.167793,0.258241 -0.771254,1.32335 L 9.6115255,13.078618 q 1.3196755,-2.492573 2.8432035,-3.9439191 1.539041,-1.4699866 2.740365,-1.5320688 0.855738,-0.044223 1.72431,0.463499 l 1.405655,-0.8748201 0.321242,6.044322 q 0.05102,0.95998 0.143698,1.151282 0.09268,0.191302 0.454718,0.172592 0.312674,-0.01616 0.905897,-0.652902 0.593223,-0.636757 1.274241,-1.795005 z m -4.997659,0.04435 -0.189911,-3.5732677 Q 16.058548,8.3245341 15.136983,8.3721589 14.149594,8.4231853 13.412592,9.4595418 12.67559,10.495898 12.754011,11.97143 q 0.06803,1.279977 0.665342,1.962155 0.596369,0.664401 1.567302,0.614225 0.756999,-0.03912 1.356286,-0.872269 0.614798,-0.851777 0.602515,-1.082886 z"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.73661041px;line-height:18.58538246px;font-family:'French Script MT';-inkscape-font-specification:'French Script MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.87693769"
+       class="parts part-1"
+       inkscape:connector-curvature="0"
+       id="path4504" />
+  </g>
   <path
-     d="M 11.593945,7.630595 Q 11.055385,8.6590308 10.489737,8.6882624 10.27697,8.6992584 10.177006,8.5807521 10.077041,8.4622504 10.050996,8.0700997 9.761678,8.5010296 9.550277,8.6356261 9.344363,8.77556 9.069323,8.789774 8.669737,8.810422 8.415232,8.5256436 8.165917,8.2405957 8.1394,7.7416623 L 8.12659,7.5006066 Q 8.073677,7.5820406 7.8833807,7.9179146 L 7.7052755,7.7978257 Q 8.121425,7.0118124 8.601857,6.5541418 9.087182,6.090593 9.46601,6.0710159 9.73586,6.0570705 10.009758,6.2171767 L 10.45302,5.941309 10.554321,7.8473385 q 0.01609,0.3027222 0.04531,0.3630478 0.02923,0.060326 0.143392,0.054426 0.0986,-0.0051 0.285667,-0.2058875 0.187069,-0.2007964 0.401822,-0.5660408 z M 10.017973,7.64458 9.958083,6.5177781 Q 9.73829,6.2986622 9.447682,6.3136803 9.136317,6.3297713 8.903909,6.656578 8.671501,6.9833848 8.696231,7.4486822 8.717681,7.852313 8.906041,8.0674324 9.094101,8.2769461 9.400277,8.2611235 9.638991,8.2487875 9.827972,7.9860603 10.021843,7.7174591 10.01797,7.6445807 Z"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.73661041px;line-height:18.58538246px;font-family:'French Script MT';-inkscape-font-specification:'French Script MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.27653542"
-     class="parts part-1"
+     style="fill:none;stroke:#c70000;stroke-width:0.18897638;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 7.7404512,7.6568547 C 8.053825,7.505971 9.4340427,6.9679754 10.673935,6.4911535 11.277449,6.259062 10.450736,7.5217504 9.5591794,8.7365967 8.7951586,9.7776614 7.9835192,10.783593 7.9835192,10.783593"
+     id="path4508"
      inkscape:connector-curvature="0"
-     id="path4504" />
-	   <g
-       class="draw-parts"
->
-  <path
-     style="fill:none;stroke:#00d600;stroke-width:0.18897638;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 7.711762,7.680384 c 2.140625,-3.59375 3.71875,-0.1875 3.71875,-0.1875"
-     id="path4539"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="cc" />
-	 </g>
-	 </g>
+     sodipodi:nodetypes="cssc" />
 </svg>
