@@ -3,6 +3,8 @@ _SVG_Typography = function(Container, options) {
     try {
         var that = this;
         this.$this = $(Container);
+        this.WindowWidth = $(window).width(); //retrieve current window width
+        this.WindowHeight = $(window).height();
         this.$SVG = {};
         this.Alphabet = new Array();
         this.Options = {
@@ -13,6 +15,7 @@ _SVG_Typography = function(Container, options) {
             try {
                 var doc = this.contentDocument;
                 that.$SVG = $(doc).children('svg');
+                that.$SVG.attr({width:that.WindowWidth, height:that.WindowHeight,viewBox:'0 0 '+that.WindowWidth+' '+that.WindowHeight});
                 if (that.$SVG.length > 0) {
                     for (var i = 0; i < 60; i++) {
                         var Letter = String.fromCharCode(65 + i)
@@ -32,7 +35,7 @@ _SVG_Typography = function(Container, options) {
                     that.Options.OnInitialised.call(that, that.Alphabet, that.$SVG);
                 }
             } catch (e) {
-        
+
                 console.error(e);
             }
         }, true);
@@ -84,7 +87,7 @@ _SVG_Typography.prototype.WriteProcess = function(Letter, Word, counter, options
             scale: 1,
             x: 100,
             y: function() {
-                return 100
+                return 150
             },
             DrawSettings: {
                 opacity: 1,
@@ -99,6 +102,7 @@ _SVG_Typography.prototype.WriteProcess = function(Letter, Word, counter, options
 
         TweenMax.to(ThisLetter.$Element, 0, {
             scale: LocalOptions.scale,
+            transformOrigin: '0% 100%',
             x: ((typeof LocalOptions.x === 'function') ? LocalOptions.x.call(that) : LocalOptions.x),
             y: ((typeof LocalOptions.y === 'function') ? LocalOptions.y.call(that) : LocalOptions.y)
         });
@@ -108,17 +112,22 @@ _SVG_Typography.prototype.WriteProcess = function(Letter, Word, counter, options
 
         that.ShowCompleteParts(ThisLetter, false);
 
-       LocalDuration  = LocalOptions.Duration / ThisLetter.Path.length;
+        LocalDuration = LocalOptions.Duration / ThisLetter.Path.length;
 
         var TitleTimeline = new TimelineMax({
             paused: true,
             onComplete: function() {
                 that.ShowCompleteParts(ThisLetter, true);
+                var boundingBox = document.createElement("div");
+                boundingBox.setAttribute("class", "boundingBox");
+                document.body.appendChild(boundingBox);
+                var BData =that.UpdateBounds(ThisLetter.$Element[0], boundingBox)
+
                 counter++;
                 var BoundingBox = ThisLetter.$Element[0].getBBox();
 
-                LocalOptions.x = ((typeof LocalOptions.x === 'function') ? LocalOptions.x.call(that) : LocalOptions.x) + (BoundingBox.width * LocalOptions.scale) + 10;
-
+                 var nextX = ((typeof LocalOptions.x === 'function') ? LocalOptions.x.call(that) : LocalOptions.x) + BData.width-20;
+                 LocalOptions.x = nextX;
                 // LocalOptions.y = ((typeof LocalOptions.y === 'function') ? LocalOptions.y.call(that) : LocalOptions.y) + BoundingBox.height;
                 that.WriteProcess(Word[counter], Word, counter, LocalOptions);
                 if (typeof LocalOptions.onComplete === 'function') {
@@ -214,6 +223,7 @@ _SVG_Typography.prototype.Exists = function(Letter) {
     }
 }
 
+/*
 _SVG_Typography.prototype.PathStringToArray = function(d) {
     var that = this;
     try {
@@ -231,6 +241,48 @@ _SVG_Typography.prototype.PathStringToArray = function(d) {
         console.log('PathStringToArray', ReturnPointArrays);
         return ReturnPointArrays;
 
+    } catch (e) {
+        console.error(e);
+    }
+}
+*/
+
+_SVG_Typography.prototype.UpdateBounds = function(element, bb) {
+    var that = this;
+    try {
+
+        var p1 = that.$SVG[0].createSVGPoint()
+          , p2 = that.$SVG[0].createSVGPoint()
+          , p3 = that.$SVG[0].createSVGPoint()
+          , p4 = that.$SVG[0].createSVGPoint();
+
+        var bbox = element.getBBox(), matrix = element.getCTM(), style = bb.style, left, top, BoundingData = {};
+        //set the x/y of each corner
+        p1.x = p4.x = bbox.x;
+        p1.y = p2.y = bbox.y;
+        p2.x = p3.x = bbox.x + bbox.width;
+        p3.y = p4.y = bbox.y + bbox.height;
+        //translate the points according to the transform matrix
+        p1 = p1.matrixTransform(matrix);
+        p2 = p2.matrixTransform(matrix);
+        p3 = p3.matrixTransform(matrix);
+        p4 = p4.matrixTransform(matrix);
+        //figure out which ones are smallest (for top and left)
+        top = Math.min(p1.y, p2.y, p3.y, p4.y);
+        left = Math.min(p1.x, p2.x, p3.x, p4.x);
+        //now set the style of the absolutely-positioned <div> elements to reflect the bounding box. 
+        BoundingData = {
+            top: top,
+            left: left,
+            width: (Math.max(p1.x, p2.x, p3.x, p4.x) - left),
+            height: (Math.max(p1.y, p2.y, p3.y, p4.y) - top)
+        }
+        style.top = BoundingData.top + "px";
+        style.left = BoundingData.left + "px";
+        style.width = BoundingData.width + "px";
+        style.height = BoundingData.height + "px";
+        
+        return BoundingData;
     } catch (e) {
         console.error(e);
     }
