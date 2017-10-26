@@ -50,7 +50,7 @@ _SVG_Typography.prototype.Get = function(Letter) {
         ReturnLetter = _.findWhere(this.Alphabet, {
             Letter: Letter
         });
-        ReturnLetter.$Element = that.$SVG.find('g#Letter' + Letter).clone().removeAttr('id');
+        ReturnLetter.$Element = that.$SVG.find('g#Letter' + Letter).clone().attr('id', 'Letter'+Letter+'_'+ Math.floor(Date.now() / 1000) );
         ReturnLetter.Path = ReturnLetter.$Element.find('path.parts');
         ReturnLetter.DrawParts = ReturnLetter.$Element.find('g.draw-parts');
         return ReturnLetter;
@@ -98,9 +98,8 @@ _SVG_Typography.prototype.WriteProcess = function(Letter, Word, counter, options
 
         //Set scale
         var ThisLetter = that.Get(Letter);
-        that.$SVG.append(ThisLetter.$Element);
-
-        TweenMax.to(ThisLetter.$Element, 0, {
+       that.$SVG.append(ThisLetter.$Element);
+       TweenMax.to(ThisLetter.$Element, 0, {
             scale: LocalOptions.scale,
             transformOrigin: '0% 100%',
             x: ((typeof LocalOptions.x === 'function') ? LocalOptions.x.call(that) : LocalOptions.x),
@@ -118,6 +117,8 @@ _SVG_Typography.prototype.WriteProcess = function(Letter, Word, counter, options
             paused: true,
             onComplete: function() {
                 that.ShowCompleteParts(ThisLetter, true);
+                 
+
                 var boundingBox = document.createElement("div");
                 boundingBox.setAttribute("class", "boundingBox");
                 document.body.appendChild(boundingBox);
@@ -184,7 +185,7 @@ _SVG_Typography.prototype.WriteProcess = function(Letter, Word, counter, options
                 });
 
             TitleTimeline.play(0);
-
+            
         });
 
         return {
