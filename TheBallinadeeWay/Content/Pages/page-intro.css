@@ -14,7 +14,7 @@ body {
   transform: translateZ(0);
   perspective: 1000px;
   backface-visibility: hidden;
-  /* border: aliceblue 1px solid; */
+  border: aliceblue 1px solid;
 }
 
 .borderStyle {

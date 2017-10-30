@@ -6,6 +6,7 @@ _SVG_Typography = function(Container, options) {
         this.WindowWidth = $(window).width(); //retrieve current window width
         this.WindowHeight = $(window).height();
         this.$SVG = {};
+        this.ObjectHTML = that.$this.find('object');
         this.Alphabet = new Array();
         this.Options = {
             OnInitialised: function(Alphabet) {}
@@ -14,7 +15,9 @@ _SVG_Typography = function(Container, options) {
         this.$this.find('object')[0].addEventListener('load', function() {
             try {
                 var doc = this.contentDocument;
-                that.$SVG = $(doc).children('svg');
+                that.$SVG = $(doc).children('svg').clone().attr('id','SVGCopied');
+                 that.ObjectHTML.addClass('hidden')
+                $('section.title-container').append(that.$SVG);      
                 that.$SVG.attr({width:that.WindowWidth, height:that.WindowHeight,viewBox:'0 0 '+that.WindowWidth+' '+that.WindowHeight});
                 if (that.$SVG.length > 0) {
                     for (var i = 0; i < 60; i++) {
@@ -116,20 +119,19 @@ _SVG_Typography.prototype.WriteProcess = function(Letter, Word, counter, options
         var TitleTimeline = new TimelineMax({
             paused: true,
             onComplete: function() {
-                that.ShowCompleteParts(ThisLetter, true);
-                 
-
-                var boundingBox = document.createElement("div");
-                boundingBox.setAttribute("class", "boundingBox");
-                document.body.appendChild(boundingBox);
-                var BData =that.UpdateBounds(ThisLetter.$Element[0], boundingBox)
-
+               that.ShowCompleteParts(ThisLetter, true);
+                
+               var boundingBox = document.createElement("div");
+               boundingBox.setAttribute("class", "boundingBox");
+               document.body.appendChild(boundingBox);
+               
+               var BData =that.UpdateBounds(ThisLetter.$Element[0], boundingBox);
+               Draggable.create(ThisLetter.$Element[0], { throwProps:true});
                 counter++;
                 var BoundingBox = ThisLetter.$Element[0].getBBox();
-
-                 var nextX = ((typeof LocalOptions.x === 'function') ? LocalOptions.x.call(that) : LocalOptions.x) + BData.width-20;
-                 LocalOptions.x = nextX;
-                // LocalOptions.y = ((typeof LocalOptions.y === 'function') ? LocalOptions.y.call(that) : LocalOptions.y) + BoundingBox.height;
+                var nextX = ((typeof LocalOptions.x === 'function') ? LocalOptions.x.call(that) : LocalOptions.x) + BData.width-20;
+                LocalOptions.x = nextX;
+               // LocalOptions.y = ((typeof LocalOptions.y === 'function') ? LocalOptions.y.call(that) : LocalOptions.y) + BoundingBox.height;
                 that.WriteProcess(Word[counter], Word, counter, LocalOptions);
                 if (typeof LocalOptions.onComplete === 'function') {
                     onComplete.call(that)
@@ -154,14 +156,14 @@ _SVG_Typography.prototype.WriteProcess = function(Letter, Word, counter, options
                     yPercent: -1400
                 });
 
-            TweenMax.set(DrawParts, {
-                drawSVG: 0
-            });
+                TweenMax.set(DrawParts, {
+                    drawSVG: 0
+                });
 
-            var ease = Linear.easeNone;
+             var ease = Linear.easeNone;
 
-            DrawParts = DrawParts.filter('.draw');
-            TitleTimeline.to(DrawParts, LocalDuration, LocalOptions.DrawSettings);
+             DrawParts = DrawParts.filter('.draw');
+             TitleTimeline.to(DrawParts, LocalDuration, LocalOptions.DrawSettings);
 
             if (Marker.length > 0) {
 

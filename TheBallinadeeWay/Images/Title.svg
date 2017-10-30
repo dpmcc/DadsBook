@@ -49,6 +49,7 @@
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="MainTitleSVG" />
+	
   <g
      id="LetterB">
     <path
@@ -326,6 +327,7 @@
  
   <g
      id="Lettere">
+	 
   <path
      id="path4686"
      inkscape:connector-curvature="0"
@@ -365,5 +367,8 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cssssascsssc" />
   </g>
-    </g>
-</svg>
+  
+
+
+ </g>
+	</svg>
