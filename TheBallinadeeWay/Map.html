@@ -1,20 +1,27 @@
 <HTML>
     <HEAD>
-        <link rel="stylesheet" href="Content/Vendors/Bootstrap/css/bootstrap.min.css"/>
-        <link href="https://fonts.googleapis.com/css?family=Niconne" rel="stylesheet">
-        <link rel="stylesheet" href="Content/Pages/page-map.css"/>
-        <script type="application/javascript" src="Scripts/Vendors/JQuery/jquery-3.1.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
-        <script type="application/javascript" src="Scripts/Vendors/Turn/scissor.min.js"></script>
-        <script type="application/javascript" src="Scripts/Vendors/Turn/turn.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
-        <script type="application/javascript" src="Scripts/Vendors/greensock-js-shockingly-green/src/bonus-files-for-npm-users/DrawSVGPlugin.js"></script>
-        <script type="application/javascript" src="Scripts/Vendors/greensock-js-shockingly-green/src/bonus-files-for-npm-users/MorphSVGPlugin.js"></script>
-        <script type="application/javascript" src="Scripts/Vendors/greensock-js-shockingly-green/src/uncompressed/utils/Draggable.js"></script>
+   <!--Styles -->
+    <link rel="stylesheet" href="Content/Vendors/Bootstrap/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Niconne" rel="stylesheet">
+    <link rel="stylesheet" href="Content/Pages/page-map.css"/>
+    
+
+   <!--Scripts -->
+    <script type="application/javascript" src="Scripts/Vendors/JQuery/jquery-3.1.1.min.js"></script>
+    <script type="application/javascript" src="Scripts/Vendors/JQuery-UI/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+    <script type="application/javascript" src="Scripts/Vendors/greensock-js-shockingly-green/src/bonus-files-for-npm-users/DrawSVGPlugin.js"></script>
+    <script type="application/javascript" src="Scripts/Vendors/greensock-js-shockingly-green/src/bonus-files-for-npm-users/MorphSVGPlugin.js"></script>
+    <script type="application/javascript" src="Scripts/Vendors/greensock-js-shockingly-green/src/uncompressed/utils/Draggable.js"></script>
   
-        <script type="application/javascript" src="Scripts/Vendors/Snap/snap.svg-min.js"></script>
-        <script type="application/javascript" src="Scripts/App/SVG_Typography.js"></script>
-        <script type="application/javascript" src="Scripts/Pages/page-map.js"></script>
+    <script type="application/javascript" src="Scripts/Vendors/Snap/snap.svg-min.js"></script>
+    <script type="application/javascript" src="Scripts/App/SVG_Typography.js"></script>
+    <script type="application/javascript" src="Scripts/App/SVG_Map.js"></script>
+ 
+
+
+     <script type="application/javascript" src="Scripts/Pages/page-map.js"></script>
         <style>
             #demo {
                 opacity: 0;
@@ -25,13 +32,6 @@
     </HEAD>
     <title>The Ballinadee Way</title>
     <BODY class="container-fluid">
-        <button id="divAnimControl">Do animation</button>
-        <svg id="test" xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
-            <path d="m 33.385119,202.00048 c 1.71968,1.79424 0.2528,3.10464 0.35936,4.65812 0.37696,5.41218 -0.7184,12.54922 1.00864,16.24458 2.50912,5.36758 5.065152,9.20184 9.292128,11.96438 6.017824,3.93296 13.807746,6.38588 20.911042,5.2789 10.064,-1.56832 19.166112,-8.53878 25.946208,-16.13974 3.917728,-4.39202 5.982976,-10.28586 7.559456,-15.95622 3.023357,-10.8752 3.874467,-22.1431 3.377437,-33.69418 -0.61152,-14.21626 -2.713597,-21.94332 -3.671197,-32.95462 -0.7232,-8.31754 -2.52864,-16.70472 -1.56512,-24.99789 0.69696,-6.00115 1.20064,-14.94293 3.214368,-22.114511 2.747199,-9.78367 11.961049,-28.041852 11.961049,-28.041852" fill="none" stroke="#000" stroke-miterlimit="10" id="pathDenis"/>
-            <circle id="red" r="25" fill="red" cx="25" cy="25"/>
-            <circle id="green" r="25" fill="green" cx="25" cy="25"/>
-            <circle id="blue" r="25" fill="blue" cx="25" cy="25"/>
-        </svg>
         <div class="col-xs-offset-1 col-xs-10">
             <section class="map-container row">
                 <object data="Images\Map.svg" class="map col-xs-12 row">Your browser doesn't support SVG </object>

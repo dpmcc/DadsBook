@@ -1,7 +1,6 @@
 
-
 body {
-  background: #354A48;
+  background: #5B6F5B  ;
   font-family: 'Fjalla One';
   color: #9993B1;
 }
@@ -85,3 +84,4 @@ input:checked + .checktrue::before {
 input:checked + .checktrue::after {
   left: 30px;
 }
+
